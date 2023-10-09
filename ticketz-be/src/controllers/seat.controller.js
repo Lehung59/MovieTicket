@@ -82,6 +82,48 @@ const orderSeat = async (req, res) => {
         return;
       }
     }
+    // seat_id.forEach((seat) => {
+    //   dataArray.push({
+    //     id,
+    //     seat,
+    //     transaction_id: createTransaction[0].id,
+    //   });
+    // });
+    const createTransaction = await seatModel.createTransaction();
+    const dataInput = [];
+    dataArray.forEach((data) => {
+      dataInput.push({
+        id: data.id,
+        seat: data.seat,
+        transaction_id: createTransaction[0].id,
+      });
+    });
+    const result = await seatModel.orderSeat(dataInput);
+    if (result.length === 0) {
+      res.status(404).json({
+        msg: "Order Failed",
+      });
+      return;
+    }
+    await client.query("COMMIT");
+    const dataResult = [];
+    result.rows.forEach((data) => {
+      const idx = dataResult.findIndex((item) => item.user_id === data.user_id);
+      if (idx >= 0) {
+        dataResult[idx].seat_id.push(data.seat_id);
+        dataResult[idx].id.push(data.id);
+      } else {
+        dataResult.push({
+          id: [data.id],
+          transaction_id: createTransaction[0].id,
+          user_id: data.user_id,
+          seat_id: [data.seat_id],
+          payment_id: null,
+          status_transaction: createTransaction[0].status,
+          "created-at": data.created_at,
+        });
+      }
+    });
     res.status(200).json({
       data: dataResult,
       msg: "Order Succes",

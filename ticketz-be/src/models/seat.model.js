@@ -57,7 +57,83 @@ const orderSeat = (dataArray) => {
   });
 };
 
+const cekStatusSeat = (dataSeat) => {
+  return new Promise((resolve, reject) => {
+    let sqlQuery = `SELECT s.id, srn.name as seat, os.name as status 
+      FROM seat s 
+      JOIN seat_rows_number srn ON srn.id = s.id_seat_rows_number
+      JOIN orderstatus os on os.id = s.order_status_id  
+      WHERE s.id IN (`;
+    const values = [];
+    dataSeat.forEach((data, idx) => {
+      if (idx !== 0) sqlQuery += ",";
+      sqlQuery += `$${idx + 1}`;
+      values.push(data.seat);
+    });
+    sqlQuery += ")";
+    db.query(sqlQuery, values, (err, result) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(result.rows);
+    });
+  });
+};
+
+const cekSeat = (dataSeat) => {
+  return new Promise((resolve, reject) => {
+    let sqlQuery = `select id from seat  
+      WHERE id IN (`;
+    const values = [];
+    dataSeat.forEach((data, idx) => {
+      if (idx !== 0) sqlQuery += ",";
+      sqlQuery += `$${idx + 1}`;
+      values.push(data.seat);
+    });
+    sqlQuery += ")";
+    db.query(sqlQuery, values, (err, result) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(result.rows);
+    });
+  });
+};
+
+const createTransaction = () => {
+  return new Promise((resolve, reject) => {
+    let sqlQuery = `insert into transaction (payment_id, status) values ($1, $2) RETURNING id, status`;
+    const values = [null, "pending"];
+    db.query(sqlQuery, values, (err, result) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(result.rows);
+    });
+  });
+};
+
+const checkCinema = (dataCinema) => {
+  return new Promise((resolve, reject) => {
+    let sqlQuery = `select id, name from cinemas where id IN (`;
+    const values = [];
+    dataCinema.forEach((data, idx) => {
+      if (idx !== 0) sqlQuery += ",";
+      sqlQuery += `$${idx + 1}`;
+      values.push(data.cinemas_id);
+    });
+    sqlQuery += ")";
+  });
+};
+
 module.exports = {
   getSeat,
   orderSeat,
+  cekStatusSeat,
+  checkCinema,
+  cekSeat,
+  createTransaction,
 };
