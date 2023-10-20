@@ -102,10 +102,16 @@ const cekSeat = (dataSeat) => {
   });
 };
 
-const createTransaction = () => {
+const cekCinema = (dataCinema) => {
   return new Promise((resolve, reject) => {
-    let sqlQuery = `insert into transaction (payment_id, status) values ($1, $2) RETURNING id, status`;
-    const values = [null, "pending"];
+    let sqlQuery = `select id, name from cinemas where id IN (`;
+    const values = [];
+    dataCinema.forEach((data, idx) => {
+      if (idx !== 0) sqlQuery += ",";
+      sqlQuery += `$${idx + 1}`;
+      values.push(data.cinemas_id);
+    });
+    sqlQuery += ")";
     db.query(sqlQuery, values, (err, result) => {
       if (err) {
         reject(err);
@@ -116,24 +122,10 @@ const createTransaction = () => {
   });
 };
 
-const checkCinema = (dataCinema) => {
-  return new Promise((resolve, reject) => {
-    let sqlQuery = `select id, name from cinemas where id IN (`;
-    const values = [];
-    dataCinema.forEach((data, idx) => {
-      if (idx !== 0) sqlQuery += ",";
-      sqlQuery += `$${idx + 1}`;
-      values.push(data.cinemas_id);
-    });
-    sqlQuery += ")";
-  });
-};
-
 module.exports = {
   getSeat,
   orderSeat,
   cekStatusSeat,
-  checkCinema,
+  cekCinema,
   cekSeat,
-  createTransaction,
 };
