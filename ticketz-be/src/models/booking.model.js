@@ -28,52 +28,6 @@ const getSeatByIds = (params) => {
   });
 };
 
-const createReservation = (data) => {
-  return new Promise((resolve, reject) => {
-    const sql = `insert into cinemas(cinemas_brand_id, city_id, address) 
-        values ($1, $2, $3) returning *`;
-    const values = [data.cinemasBrandId, data.cityId, data.address];
-    db.query(sql, values, (err, result) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(result);
-    });
-  });
-};
-
-const updateSeatOrderStatus = (params, data) => {
-  return new Promise((resolve, reject) => {
-    console.log(data.address);
-    const dataAvail = [];
-    if (data.cinemasBrandId != null) {
-      dataAvail.push("cinemas_brand_id=");
-    }
-    if (data.cityId != null) {
-      dataAvail.push("city_id=");
-    }
-    if (data.address != null) {
-      dataAvail.push("address=");
-    }
-
-    const dataQuery = dataAvail.map((data, i) => `${data}$${i + 1}`).join(`, `);
-    const rawValues = [
-      data.cinemasBrandId,
-      data.cityId,
-      data.address,
-      params.id,
-    ];
-    const values = rawValues.filter((d) => d);
-    let sql = `update cinemas set ${dataQuery} where id=$${values.length} RETURNING *`;
-    db.query(sql, values, (err, result) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(result);
-    });
-  });
-};
-
 module.exports = {
   getCinemaById,
   getSeatByIds,

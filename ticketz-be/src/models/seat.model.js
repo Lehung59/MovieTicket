@@ -102,6 +102,20 @@ const cekSeat = (dataSeat) => {
   });
 };
 
+const createTransaction = () => {
+  return new Promise((resolve, reject) => {
+    let sqlQuery = `insert into transaction (payment_id, status) values ($1, $2) RETURNING id, status`;
+    const values = [null, "pending"];
+    db.query(sqlQuery, values, (err, result) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(result.rows);
+    });
+  });
+};
+
 const cekCinema = (dataCinema) => {
   return new Promise((resolve, reject) => {
     let sqlQuery = `select id, name from cinemas where id IN (`;
@@ -128,4 +142,5 @@ module.exports = {
   cekStatusSeat,
   cekCinema,
   cekSeat,
+  createTransaction,
 };
