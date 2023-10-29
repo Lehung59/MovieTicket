@@ -29,6 +29,26 @@ const createBooking = async (req, res) => {
     // Calculate the total price of the booking
     const totalPrice = cinema.prices * seatIds.length;
 
+    // Create a reservation for each seat
+    const reservations = await Promise.all(
+      seatIds.map((seatId) =>
+        bookingModel.createReservation({
+          cinema_id: cinemaId,
+          order_status_id: 2, // Set to 'booked'
+          user_id: userId,
+          seat_id: seatId,
+          created_at: new Date(),
+        })
+      )
+    );
+
+    // Update the order status of the seats to 'booked'
+    await Promise.all(
+      seatIds.map(
+        (seatId) => bookingModel.updateSeatOrderStatus(seatId, 2) // Set to 'booked'
+      )
+    );
+
     await client.query("COMMIT");
     res.status(200).json({
       msg: "Booking created successfully",
