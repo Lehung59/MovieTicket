@@ -23,12 +23,43 @@ const createToken = (token) => {
   });
 };
 
+const getEmail = (body) => {
+  return new Promise((resolve, reject) => {
+    const sqlQuery = "select email from users where email = $1";
+    db.query(sqlQuery, [body.email], (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+};
 
 const createBlackList = (token) => {
   return new Promise((resolve, reject) => {
     const sqlQuery = `update tokens set blacklist = $1 where token = $2`;
     db.query(sqlQuery, [token, token], (err, result) => {
       if (err) reject(err);
+      resolve(result);
+    });
+  });
+};
+
+const register = (data, hashedPassword, otp) => {
+  console.log(data, hashedPassword, otp);
+  return new Promise((resolve, reject) => {
+    const sqlQuery = `insert into users (email, password, role_id, otp, status) values ($1, $2, $3, $4, $5) RETURNING email, phone`;
+    // parameterized query
+    const values = [
+      data.email,
+      hashedPassword,
+      data.role_id || 1,
+      otp,
+      "Not Active",
+    ];
+    db.query(sqlQuery, values, (err, result) => {
+      if (err) {
+        reject(err);
+        return;
+      }
       resolve(result);
     });
   });
@@ -56,6 +87,26 @@ const getOtp = (email) => {
   });
 };
 
+const verify = (email) => {
+  return new Promise((resolve, reject) => {
+    const sqlQuery =
+      "update users SET status = $1 where email = $2 RETURNING email, status";
+    db.query(sqlQuery, ["active", email], (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+};
+
+const cekVerify = (email) => {
+  return new Promise((resolve, reject) => {
+    const sqlQuery = "select status from users where email = $1";
+    db.query(sqlQuery, [email], (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+};
 
 const getOtpWithOtp = (otp) => {
   return new Promise((resolve, reject) => {
@@ -110,12 +161,16 @@ const changePassword = (newPassword, id) => {
 module.exports = {
   userVerification,
   createToken,
+  getEmail,
   getBlackList,
+  register,
   createBlackList,
   getOtp,
   createOtp,
   forgot,
   getOtpWithOtp,
+  verify,
+  cekVerify,
   getOldPassword,
   changePassword,
 };
