@@ -1,95 +1,6 @@
 const supabase = require("../configs/supabase");
 
-const addMovies = (data) => {
-  return new Promise((resolve, reject) => {
-    const sql = `insert into movies (title, image, category, release_date, duration, director, casts, synopsis, seller_id, created_at)
-                    values ($1, $2, $3, $4, $5, $6, $7, $8, $9, now()) returning *`;
-    const values = [
-      data.title,
-      data.image,
-      data.category,
-      data.releaseDate,
-      data.duration,
-      data.director,
-      data.casts,
-      data.synopsis,
-      data.sellerId,
-    ];
-    supabase.query(sql, values, (err, result) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(result);
-    });
-  });
-};
 
-const getAllMovies = (query) => {
-  return new Promise((resolve, reject) => {
-    let sql = `select m.id, m.title, m.image as movies_image, m.synopsis, m.duration, m.release_date, m.duration, m.director, m.casts, s.showdate, s.showtime 
-        from movies m left join show s on s.movies_id = m.id `;
-    if (query.show && query.show === "now") {
-      sql += `where date_trunc('month', s.showdate) = date_trunc('month', current_date) `;
-    }
-    if (query.show && query.show !== "now") {
-      let showDate = query.show.split("-");
-      sql += `where date_part('month', s.showdate)=${showDate[1]} and date_part('year', s.showdate)=${showDate[0]} `;
-    }
-    if (query.category !== undefined) {
-      query.category && query.show
-        ? (sql += `and lower(category) like lower('%${query.category}%') `)
-        : (sql += `where lower(category) like lower('%${query.category}%') `);
-    }
-    if (query.search) {
-      query.search && query.show
-        ? (sql += `and lower(title) like lower('%${query.search}%') `)
-        : query.search && query.category
-        ? (sql += `and lower(title) like lower('%${query.search}%') `)
-        : (sql += `where lower(title) like lower('%${query.search}%') `);
-    }
-    switch (query.sort) {
-      case "name_asc":
-        sql += `order by m.title asc `;
-        break;
-      case "name_desc":
-        sql += `order by m.title desc `;
-        break;
-      case "release_asc":
-        sql += `order by m.release_date asc `;
-        break;
-      case "release_desc":
-        sql += `order by m.release_date desc `;
-        break;
-      case "duration_asc":
-        sql += `order by m.duration asc `;
-        break;
-      case "duration_desc":
-        sql += `order by m.duration desc `;
-        break;
-      default:
-        sql += `order by m.title asc `;
-    }
-
-    const page = Number(query.page || 1);
-    let limit = null;
-    let offset = null;
-    let values = [];
-
-    if (query.limit !== undefined) {
-      limit = Number(query.limit);
-      offset = (page - 1) * limit;
-      sql += `limit $1 offset $2`;
-      values = [limit, offset];
-    }
-    console.log(sql);
-    supabase.query(sql, values, (err, result) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(result);
-    });
-  });
-};
 
 const getMetaMovies = (query) => {
 
@@ -264,8 +175,7 @@ const updateMoviesImage = (client, req, fileLink) => {
 };
 
 module.exports = {
-  addMovies,
-  getAllMovies,
+
   getSingleMovies,
   getMetaMovies,
 };
