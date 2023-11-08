@@ -77,30 +77,18 @@ const createTransaction = async (req, res) => {
     });
   }
 };
-const getAllTransaction = async (req, res) => {
+
+const getPayment = async (req, res) => {
   try {
-    const { id } = req.authInfo;
-    const result = await transactionModel.getAllTransaction(id);
-    if (result.rows.length === 0) {
+    const payment = await transactionModel.getPayment();
+    if (payment.rows.length === 0) {
       res.status(404).json({
-        msg: "transaction not found",
+        msg: "payment not found",
       });
       return;
     }
-    const dataResult = Object.values(
-      result.rows.reduce((acc, obj) => {
-        const key = obj.transaction_id;
-        const { seats, ...rest } = obj;
-        if (!acc[key]) {
-          acc[key] = { ...rest, seats: [seats] };
-        } else {
-          acc[key].seats.push(seats);
-        }
-        return acc;
-      }, {})
-    );
     res.status(200).json({
-      data: dataResult,
+      data: payment.rows,
     });
   } catch (error) {
     console.log(error.message);
@@ -113,5 +101,5 @@ const getAllTransaction = async (req, res) => {
 module.exports = {
   getTransaction,
   createTransaction,
-  getAllTransaction,
+  getPayment,
 };
