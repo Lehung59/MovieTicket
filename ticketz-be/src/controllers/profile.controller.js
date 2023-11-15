@@ -82,6 +82,40 @@ const updateProfileImage = async (req, res) => {
   }
 };
 
+const updatePoin = async (req, res) => {
+  try {
+    const { poin } = req.body;
+    const { id } = req.authInfo;
+    // console.log(id);
+    const getPoinDB = await profileModel.getPoin(id);
+    // return console.log(getPoinDB);
+    if (getPoinDB.rows.length < 1) {
+      res.status(404).json({
+        data: result.rows,
+        msg: "Users Tidak Ditemukan",
+      });
+    }
+    const poinTotal = getPoinDB.rows[0].poin + parseInt(poin);
+    const result = await profileModel.updatePoin(id, poinTotal);
+    if (result.rows.length === 0) {
+      res.status(404).json({
+        data: result.rows,
+        msg: "Users Tidak Ditemukan",
+      });
+      return;
+    }
+    res.status(200).json({
+      data: result.rows,
+      msg: "points increase",
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      msg: "Internal server error",
+    });
+  }
+};
+
 const deleteImage = async (req, res) => {
   const client = await db.connect();
   try {
