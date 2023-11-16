@@ -2,16 +2,21 @@ const profileModel = require("../models/profile.model");
 const { uploaderUsers } = require("../utils/cloudinary");
 const db = require("../configs/supabase");
 
+const handleDatabaseError = (res, error) => {
+  console.log(error.message);
+  res.status(500).json({
+    msg: "Internal server error",
+  });
+};
+
 const getProfile = async (req, res) => {
   try {
-    // const { query } = req;
     const { id } = req.authInfo;
-    // console.log(id);
     const result = await profileModel.getProfile(id);
     if (result.rows.length === 0) {
       res.status(404).json({
         data: result.rows,
-        msg: "Users Tidak Ditemukan",
+        msg: "User Not Found",
       });
       return;
     }
@@ -19,10 +24,7 @@ const getProfile = async (req, res) => {
       data: result.rows,
     });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({
-      msg: "Internal server error",
-    });
+    handleDatabaseError(res, error);
   }
 };
 
@@ -37,10 +39,7 @@ const updateProfile = async (req, res) => {
       data: resultUserBio.rows,
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      msg: "Internal Server Error...",
-    });
+    handleDatabaseError(res, err);
   } finally {
     client.release();
   }
@@ -73,10 +72,7 @@ const updateProfileImage = async (req, res) => {
       data: resultUserBio.rows,
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      msg: "Internal Server Error...",
-    });
+    handleDatabaseError(res, err);
   } finally {
     client.release();
   }
@@ -86,13 +82,11 @@ const updatePoin = async (req, res) => {
   try {
     const { poin } = req.body;
     const { id } = req.authInfo;
-    // console.log(id);
     const getPoinDB = await profileModel.getPoin(id);
-    // return console.log(getPoinDB);
     if (getPoinDB.rows.length < 1) {
       res.status(404).json({
         data: result.rows,
-        msg: "Users Tidak Ditemukan",
+        msg: "User Not Found",
       });
     }
     const poinTotal = getPoinDB.rows[0].poin + parseInt(poin);
@@ -100,19 +94,16 @@ const updatePoin = async (req, res) => {
     if (result.rows.length === 0) {
       res.status(404).json({
         data: result.rows,
-        msg: "Users Tidak Ditemukan",
+        msg: "User Not Found",
       });
       return;
     }
     res.status(200).json({
       data: result.rows,
-      msg: "points increase",
+      msg: "Points Increased",
     });
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({
-      msg: "Internal server error",
-    });
+    handleDatabaseError(res, error);
   }
 };
 
@@ -127,10 +118,7 @@ const deleteImage = async (req, res) => {
       msg: "Update Success...",
     });
   } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      msg: "Internal Server Error...",
-    });
+    handleDatabaseError(res, err);
   } finally {
     client.release();
   }
