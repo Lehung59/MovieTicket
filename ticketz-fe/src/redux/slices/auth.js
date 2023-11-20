@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { login } from "utils/https/auth";
 
 const initialState = {
     data: {},
@@ -8,6 +9,18 @@ const initialState = {
     err: null,
 };
 
+const doLogin = createAsyncThunk(
+    "auth/post",
+    async ({ email, password }) => {
+      try {
+        const response = await login(email, password);
+        console.log(response.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  );
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -15,11 +28,24 @@ const authSlice = createSlice({
         logoutRedux: () => {
             return initialState;
         },
-    }
+    },
+    extraReducers: (builder) => {
+        builder
+          .addCase(doLogin.pending, (prevState) => {
+            return {
+              ...prevState,
+              isLoading: true,
+              isRejected: false,
+              isFulfilled: false,
+              err: null,
+            };
+          });
+      },
 })
 
 export const authAction = {
     ...authSlice.actions,
+    doLogin
 };
 
 export default authSlice.reducer;
