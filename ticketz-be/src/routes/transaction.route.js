@@ -15,9 +15,24 @@ transactionRoute.patch(
   transactionController.createTransaction
 );
 transactionRoute.get(
+  "/payment",
+  authMiddleware.checkToken,
+  transactionController.getPayment
+);
+transactionRoute.get(
   "/all",
   authMiddleware.checkToken,
   transactionController.getAllTransaction
 );
+transactionRoute.get(
+  "/",
+  authMiddleware.checkToken,
+  transactionController.getAllTransaction
+);
+// transactionRoute.post(
+//   "/order",
+//   authMiddleware.checkToken,
+//   transactionController.orderSeat
+// );
 
 module.exports = transactionRoute;
