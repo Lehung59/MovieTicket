@@ -96,4 +96,23 @@ export default function Cinemas() {
   )
 }
 
+export async function getStaticProps() {
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL
+  try {
+    const res = await axios.get(`${baseUrl}/cinemas`);
+    const data = await res.json(cities);
 
+    return {
+      props: {
+        cities: data,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {
+        cities: [],
+      },
+    };
+  }
+}
