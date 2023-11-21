@@ -32,6 +32,9 @@ export default function Cinemas() {
     console.log(cinemas);
   }
 
+  const redirectBioskop = (id) => {
+    router.push('cinemas/CineOne')
+  }
 
   return (
     <>
@@ -68,7 +71,30 @@ export default function Cinemas() {
                   <button onClick={handleChange} data-city-id="2" className="font-bold text-lg cursor-pointer hover:text-primary">BacGiang</button>
                 </div>
                 <div className="border-b-2 border-black w-full py-[1vw]"></div>
-
+                <div className="py-[1vw]">
+                  <ul className="p-[1vw] flex gap-5">
+                    {
+                    cinemas.map((cinema) => {
+                      console.log(cinema);
+                      return<li onClick={redirectBioskop} className="cursor-pointer font-bold text-lg hover:bg-primary hover:rounded-md" key={cinema.id}>{cinema.cinema_name}</li>
+                    })
+                    }
+                  </ul>
+                  {/* <div >
+                                        {JktCinemas &&
+                                            <div className="grid grid-cols-4 gap-5 justify-items-center">
+                                                <Link href={"/cinemas/GrandInd"} className="font-bold text-lg hover:bg-primary hover:rounded-md hover:px-[3px]">Grand Indonesia</Link>
+                                                <Link href={""} className="font-bold text-lg hover:bg-primary hover:rounded-md hover:px-[3px]">Pacific Place</Link>
+                                                <Link href={""} className="font-bold text-lg hover:bg-primary hover:rounded-md hover:px-[3px]">Grand Indonesia</Link>
+                                                <Link href={""} className="font-bold text-lg hover:bg-primary hover:rounded-md hover:px-[3px]">Pacific Place</Link>
+                                                <Link href={""} className="font-bold text-lg hover:bg-primary hover:rounded-md hover:px-[3px]">Grand Indonesia</Link>
+                                                <Link href={""} className="font-bold text-lg hover:bg-primary hover:rounded-md hover:px-[3px]">Pacific Place</Link>
+                                                <Link href={""} className="font-bold text-lg hover:bg-primary hover:rounded-md hover:px-[3px]">Grand Indonesia</Link>
+                                                <Link href={""} className="font-bold text-lg hover:bg-primary hover:rounded-md hover:px-[3px]">Pacific Place</Link>
+                                            </div>
+                                        }
+                                    </div> */}
+                </div>
               </div>
             </section>
           </main>
