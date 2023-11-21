@@ -39,7 +39,15 @@ const authSlice = createSlice({
               isFulfilled: false,
               err: null,
             };
-          });
+          })
+          .addCase(doLogin.fulfilled, (prevState, action) => {
+            return {
+              ...prevState,
+              isLoading: false,
+              isFulfilled: true,
+              data: action.payload,
+            };
+          })
       },
 })
 

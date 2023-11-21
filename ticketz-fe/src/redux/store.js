@@ -3,6 +3,8 @@ import {
     persistReducer,
     PAUSE,
     PERSIST,
+    FLUSH,
+    REHYDRATE,
 } from "redux-persist";
 
 import storage from "redux-persist/lib/storage";
@@ -10,8 +12,8 @@ import storage from "redux-persist/lib/storage";
 import reducer from "./slices";
 
 const persistConfig = {
-  key: "tickitz",
-  storage,
+    key: "tickitz",
+    storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, reducer);
@@ -22,7 +24,7 @@ const store = configureStore({
     middleware: (defaultMiddleware) => {
         return defaultMiddleware({
             serializableCheck: {
-                ignoredActions: [PAUSE, PERSIST],
+                ignoredActions: [PAUSE, PERSIST, REHYDRATE, FLUSH],
             },
         });
     },
