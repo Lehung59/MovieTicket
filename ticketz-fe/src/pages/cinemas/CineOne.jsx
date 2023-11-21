@@ -64,7 +64,47 @@ export default function GrandInd() {
                 <Link href={"/cinemas/GrandInd"} className="col-span-3 font-bold text-5xl text-[#EC8A23] flex justify-center">Cine One 21</Link>
               </div>
             </section>
-
+            <section className="py-10 min-h-screen">
+              <div className="md:px-20 px-5">
+                <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-2 md:gap-10 gap-5">
+                  {movieData.map((movie) => {
+                    return (
+                      <div
+                        key={movieData && movie.id}
+                        className="flex flex-col items-center gap-y-7 bg-white border-[0.5px] border-[#DEDEDE] rounded-md p-5"
+                      >
+                        <figure className="relative overflow-hidden h-[224px] w-[159px]">
+                          <Image
+                            alt="movie-poster"
+                            src={movieData && movie.movies_image}
+                            fill={true}
+                            priority={true}
+                            sizes="159px"
+                            className="rounded-md"
+                          />
+                        </figure>
+                        <div className="flex flex-col">
+                          <p className="font-bold text-lg text-tickitz-darkTitle text-center">
+                            {movieData && movie.title}
+                          </p>
+                          <p className="text-xs text-[#A0A3BD] text-center">
+                            {movieData && movie.category}
+                          </p>
+                        </div>
+                        <div className="flex flex-col gap-y-3">
+                          <button className="btn normal-case text-tickitz-primary border-tickitz-primary bg-white hover:text-white hover:bg-tickitz-primary">
+                            Details
+                          </button>
+                          <button className="btn normal-case text-white border-tickitz-primary bg-tickitz-primary hover:text-tickitz-primary">
+                            Book Now
+                          </button>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </section>
           </main>
           <Footer />
         </div>
