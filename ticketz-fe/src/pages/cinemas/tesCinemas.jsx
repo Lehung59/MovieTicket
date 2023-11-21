@@ -26,7 +26,18 @@ export default function Cinemas() {
     console.log(cityId);
   }
 
-
+  const fetchCinemas = async () => {
+    console.log(cinemas);
+    const response = await axios.get(`${baseUrl}/cinemas?cityId=${cityId}`);
+    setCinemas(response.data.data);
+    console.log(response.data);
+    console.log(cinemas);
+  }
+  
+  const handleCityClick = (city) => {
+    setSelectedCity(city);
+    setShowBioskops(true);
+  };
 
   const handleBioskopClick = (bioskop) => {
     setSelectedBioskop(bioskop);
@@ -40,7 +51,18 @@ export default function Cinemas() {
           <Navbar />
           <div>
       <h1>Daftar Bioskop</h1>
-
+      {!showBioskops && (
+        <div>
+          <p>Silakan pilih kota:</p>
+          <ul>
+            {cities.map((city) => (
+              <li key={city.id} onClick={() => handleCityClick(city.name)}>
+                {city.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       {showBioskops && (
         <div>
           <p>Daftar bioskop di {selectedCity}:</p>
