@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getProfileData } from "utils/https/user";
+import { changeProfileData } from "utils/https/user";
 
 const initialState = {
     data: [],
@@ -68,6 +69,14 @@ const profileSlice = createSlice({
                     data: action.payload,
                 };
             })
+            .addCase(getProfile.rejected, (prevState, action) => {
+                return {
+                  ...prevState,
+                  isLoading: false,
+                  isRejected: true,
+                  err: action.payload,
+                };
+              })
             .addCase(editUserProfile.pending, (prevState, action) => {
                 return {
                     ...prevState,
@@ -82,6 +91,8 @@ const profileSlice = createSlice({
 
 export const profileAction = {
     ...profileSlice.actions,
+    getProfile,
+    editUserProfile,
 };
 
 export default profileSlice.reducer;
