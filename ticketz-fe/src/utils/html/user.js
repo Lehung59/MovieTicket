@@ -1,65 +1,65 @@
 import axios from "axios";
 
-const apiBaseUrl = `${process.env.NEXT_PUBLIC_API_URL}`;
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`;
 
-export const fetchProfileData = (token, controller) => {
-  const profileUrl = `${apiBaseUrl}/profile`;
-  const profileConfig = {
+export const getProfileData = (token, controller) => {
+  const url = `${baseUrl}/profile`;
+  const config = {
     headers: { Authorization: `Bearer ${token}` },
     signal: controller.signal,
   };
-  return axios.get(profileUrl, profileConfig);
+  return axios.get(url, config);
 };
 
-export const updateProfileData = (
-  firstName,
-  lastName,
+export const changeProfileData = (
+  first_name,
+  last_name,
   phone,
   token,
   controller
 ) => {
-  const profileUrl = `${apiBaseUrl}/profile`;
-  const profileBody = { first_name: firstName, last_name: lastName, phone };
-  const profileConfig = {
+  const url = `${baseUrl}/profile`;
+  const body = { first_name, last_name, phone };
+  const config = {
     headers: { Authorization: `Bearer ${token}` },
     signal: controller.signal,
   };
-  return axios.patch(profileUrl, profileBody, profileConfig);
+  return axios.patch(url, body, config);
 };
 
-export const updatePassword = (passwordBody, token, controller) => {
-  const passwordUrl = `${apiBaseUrl}/auth/change-password`;
-  const passwordConfig = {
+export const changePassword = (body, token, controller) => {
+  const url = `${baseUrl}/auth/change-password`;
+  const config = {
     headers: { Authorization: `Bearer ${token}` },
     signal: controller.signal,
   };
-  return axios.patch(passwordUrl, passwordBody, passwordConfig);
+  return axios.patch(url, body, config);
 };
 
-export const updateProfileImage = (imageBody, token, controller) => {
-  const imageUrl = `${apiBaseUrl}/profile/image`;
-  const imageConfig = {
+export const changeProfileImage = (body, token, controller) => {
+  const url = `${baseUrl}/profile/image`;
+  const config = {
     headers: { Authorization: `Bearer ${token}` },
     signal: controller.signal,
   };
-  return axios.patch(imageUrl, imageBody, imageConfig);
+  return axios.patch(url, body, config);
 };
 
-export const removeProfileImage = (token, controller) => {
-  const deleteImageUrl = `${apiBaseUrl}/profile/delete-image`;
-  const deleteImageBody = null;
-  const deleteImageConfig = {
+export const deleteProfileImage = (token, controller) => {
+  const url = `${baseUrl}/profile/delete-image`;
+  const body = null;
+  const config = {
     headers: { Authorization: `Bearer ${token}` },
     signal: controller.signal,
   };
-  return axios.patch(deleteImageUrl, deleteImageBody, deleteImageConfig);
+  return axios.patch(url, body, config);
 };
 
-export const fetchHistories = (token, controller) => {
-  const historiesUrl = `${apiBaseUrl}/`;
-  const historiesConfig = {
+export const getHistories = (token, controller) => {
+  const url = `${baseUrl}/`;
+  const config = {
     headers: { Authorization: `Bearer ${token}` },
     signal: controller.signal,
   };
-  return axios.get(historiesUrl, historiesConfig);
+  return axios.get(url, config);
 };

@@ -1,34 +1,34 @@
 import axios from "axios";
 
-const apiBaseUrl = `${process.env.NEXT_PUBLIC_API_URL}/auth`;
-const frontendBaseUrl = `${process.env.NEXT_PUBLIC_FE_URL}`;
+const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}/auth`;
+const verifyUrl = `${process.env.NEXT_PUBLIC_FE_URL}`;
 
-export const registerUser = (email, password, controller) => {
-  const registrationUrl = `${apiBaseUrl}/register`;
-  const registrationBody = {
+export const register = (email, password, controller) => {
+  const url = `${baseUrl}/register`;
+  const body = {
     email,
     password,
     role_id: 1,
-    link_direct: `${frontendBaseUrl}/verify`,
+    link_direct: `${verifyUrl}/verify`,
   };
-  return axios.post(registrationUrl, registrationBody, {
+  return axios.post(url, body, {
     signal: controller.signal,
   });
 };
 
-export const verifyUser = (otp, email, controller) => {
-  const verificationUrl = `${apiBaseUrl}/verify/${email}`;
-  const verificationBody = { otp };
-  return axios.patch(verificationUrl, verificationBody, {
+export const verify = (otp, email, controller) => {
+  const url = `${baseUrl}/verify/${email}`;
+  const body = { otp };
+  return axios.patch(url, body, {
     signal: controller.signal,
   });
 };
 
-export const loginUser = (email, password) => {
-  const loginUrl = `${apiBaseUrl}`;
+export const login = (email, password) => {
+  const url = `${baseUrl}`;
   return axios({
     method: "post",
-    url: loginUrl,
+    url,
     data: { email, password },
     headers: {
       "Access-Control-Allow-Origin": "*",
@@ -36,28 +36,28 @@ export const loginUser = (email, password) => {
   });
 };
 
-export const initiatePasswordReset = (email, controller) => {
-  const resetUrl = `${apiBaseUrl}/forgot`;
-  const resetBody = { email, link_direct: `${frontendBaseUrl}/reset-password` };
-  return axios.patch(resetUrl, resetBody, {
+export const forgot = (email, controller) => {
+  const url = `${baseUrl}/forgot`;
+  const body = { email, link_direct: `${verifyUrl}/reset-password` };
+  return axios.patch(url, body, {
     signal: controller.signal,
   });
 };
 
-export const resetPassword = (otp, newPassword, confirmPassword, controller) => {
-  const passwordResetUrl = `${apiBaseUrl}/reset-password/${otp}`;
-  const passwordResetBody = { newPassword, confirmPassword };
-  return axios.patch(passwordResetUrl, passwordResetBody, {
+export const resetPwd = (otp, newPassword, confirmPassword, controller) => {
+  const url = `${baseUrl}/reset-password/${otp}`;
+  const body = { newPassword, confirmPassword };
+  return axios.patch(url, body, {
     signal: controller.signal,
   });
 };
 
-export const userLogout = (token, controller) => {
-  const logoutUrl = `${apiBaseUrl}/logout`;
-  const logoutBody = null;
-  const logoutConfig = {
+export const logout = (token, controller) => {
+  const url = `${baseUrl}/logout`;
+  const body = null;
+  const config = {
     headers: { Authorization: `Bearer ${token}` },
     signal: controller.signal,
   };
-  return axios.patch(logoutUrl, logoutBody, logoutConfig);
+  return axios.patch(url, body, config);
 };
