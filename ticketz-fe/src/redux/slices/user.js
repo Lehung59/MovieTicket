@@ -29,7 +29,7 @@ const editUserProfile = createAsyncThunk(
             const formData = new FormData();
             formData.append("firstName", body.firstName);
             formData.append("lastName", body.lastName);
-            formData.append("lastName", body.phone);
+            formData.append("phone", body.phone);
             const response = await changeProfileData(formData, token, controller);
             return response.data;
         } catch (err) {
@@ -61,7 +61,7 @@ const profileSlice = createSlice({
                 };
             })
             .addCase(getProfile.fulfilled, (prevState, action) => {
-                console.log(action.payload);
+                // console.log(action.payload);
                 return {
                     ...prevState,
                     isLoading: false,
@@ -86,6 +86,16 @@ const profileSlice = createSlice({
                     err: null,
                 };
             })
+            .addCase(editUserProfile.fulfilled, (prevState, action) => {
+                console.log(action.payload);
+                return {
+                  ...prevState,
+                  isLoading: false,
+                  isRejected: false,
+                  isFulfilled: true,
+                  data: { ...prevState.data, ...action.payload },
+                };
+              })
     }
 });
 
