@@ -52,7 +52,11 @@ export default function MovieList() {
 
 
 
+	const handleSearch = (e) => {
+		setSearch(e.target.value);
+	};
 
+	const debouncedSearch = useMemo(() => debounce(handleSearch, 1000), []);
 
 	const months = [
 		"January",
