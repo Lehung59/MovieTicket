@@ -50,7 +50,10 @@ export default function MovieList() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [search, sort, page, controller]);
 
-
+	const handleSort = (e) => {
+		let value = e.target.value;
+		setSort(value);
+	};
 
 	const handleSearch = (e) => {
 		setSearch(e.target.value);
@@ -93,7 +96,23 @@ export default function MovieList() {
 									className="appearance-none focus:outline-none border-transparent pl-10 w-full pr-4 py-2 rounded-md"
 								/>
 							</div>
-
+							<div className="relative w-full">
+								<i className="bi bi-caret-down absolute top-[10px] right-[10px] pointer-events-none"></i>
+								<select
+									onChange={handleSort}
+									name="sort"
+									className="border border-gray-300 rounded-md text-gray-600 h-10 pl-5 w-full bg-white hover:border-gray-400 focus:outline-none appearance-none"
+									id="filter"
+								>
+									<option value="">Sort by</option>
+									<option value="name_asc">Name Ascending</option>
+									<option value="name_desc">Name Descending</option>
+									<option value="release_asc">Release Asc</option>
+									<option value="release_desc">Release Desc</option>
+									<option value="duration_asc">Duration Asc</option>
+									<option value="duration_desc">Duration Desc</option>
+								</select>
+							</div>
 						</div>
 					</section>
 					<section className="py-10">
