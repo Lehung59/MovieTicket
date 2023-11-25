@@ -43,17 +43,14 @@ const createBlackList = (token) => {
   });
 };
 
-const register = (data, hashedPassword, otp) => {
-  console.log(data, hashedPassword, otp);
+const register = (data, hashedPassword) => {
   return new Promise((resolve, reject) => {
-    const sqlQuery = `insert into users (email, password, role_id, otp, status) values ($1, $2, $3, $4, $5) RETURNING email, phone`;
-    // parameterized query
+    const sqlQuery = `INSERT INTO users (email, password, role_id, status) VALUES ($1, $2, $3, $4) RETURNING email, phone`;
     const values = [
       data.email,
       hashedPassword,
       data.role_id || 1,
-      otp,
-      "Not Active",
+      "null",
     ];
     db.query(sqlQuery, values, (err, result) => {
       if (err) {

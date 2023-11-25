@@ -49,16 +49,6 @@ const checkToken = (req, res, next) => {
   });
 };
 
-const checkRole = (req, res, next) => {
-  const role = req.authInfo.role_id;
-  if (role !== 1) {
-    return res.status(403).json({
-      msg: "Not allowed, Only admin should access.",
-    });
-  }
-  next();
-};
-
 const checkVerify = async (req, res, next) => {
   const { email } = req.body;
   const result = await authModels.cekVerify(email);
@@ -79,6 +69,5 @@ const checkVerify = async (req, res, next) => {
 
 module.exports = {
   checkToken,
-  checkRole,
   checkVerify,
 };

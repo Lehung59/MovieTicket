@@ -1,0 +1,19 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: node:20.4.0
+    steps:
+      - checkout
+      - run:
+          name: Install Backend
+          command: |
+            cd ticketz-be && \
+            npm i --force
+      - run:
+          name: Install Frontend
+          command: |
+            cd ticketz-fe && \
+            npm i --force && \
+            npm run build
