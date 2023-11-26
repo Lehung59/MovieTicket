@@ -27,7 +27,7 @@ function Details() {
 
   const [movieData, setMovieData] = useState([]);
   const [cardData, setCardData] = useState([]);
-
+  const [location, setLocation] = useState("HaNoi");
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -67,6 +67,7 @@ function Details() {
   const formattedDuration = `${
     hours ? hours + " hour" + (hours > 1 ? "s" : "") : ""
   } ${minutes ? minutes + " minute" + (minutes > 1 ? "s" : "") : ""}`.trim();
+
 
   console.log(cardData);
   return (
@@ -158,7 +159,36 @@ function Details() {
                 className=" outline-none bg-[#EFF0F6] cursor-pointer"
               />
             </div>
-
+            <div className="dropdown flex bg-[#EFF0F6] w-72 h-14 rounded-md px-6 cursor-pointer">
+              <label
+                tabIndex={0}
+                className="flex justify-between items-center gap-x-3 w-full cursor-pointer"
+              >
+                <div className="flex gap-1 justify-center items-center">
+                  <i className="bi bi-geo-alt-fill text-[1.2rem]"></i>
+                  <p className="text-[1rem]">
+                    {location === "" ? "Hanoi" : location}
+                  </p>
+                </div>
+                <div>
+                  <i className="bi bi-chevron-compact-down"></i>
+                </div>
+              </label>
+              <ul
+                tabIndex={0}
+                className="dropdown-content menu menu-compact p-2 shadow bg-base-100 rounded-lg w-60"
+              >
+                <li onClick={() => setLocation("Hanoi")}>
+                  <p>Hanoi</p>
+                </li>
+                <li onClick={() => setLocation("BacGiang")}>
+                  <p>BacGiang</p>
+                </li>
+                <li onClick={() => setLocation("SaiGon")}>
+                  <p>SaiGon</p>
+                </li>
+              </ul>
+            </div>
           </div>
           <section className=" flex mt-[4.6rem] justify-center gap-8 flex-wrap w-full">
             {cardData.map((data, idx) => {
@@ -186,7 +216,13 @@ function Details() {
               <div className=" w-full h-[1px] bg-tickitz-label"></div>
             </div>
           )}
-
+          {/* <div className=" flex gap-12 py-12 w-full items-center">
+            <div className=" w-full h-[1px] bg-tickitz-label"></div>
+            <div className=" w-max">
+              <p className=" text-tickitz-primary font-bold w-max">View More</p>
+            </div>
+            <div className=" w-full h-[1px] bg-tickitz-label"></div>
+          </div> */}
         </section>
       </main>
       <Footer />
