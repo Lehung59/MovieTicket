@@ -7,6 +7,7 @@ import { getSingleMovie, getAllShow } from "utils/https/movies";
 
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
+import CardBrand from "components/CardBrand";
 import Layout from "components/Layout";
 import Loader from "components/Loader";
 
@@ -25,6 +26,8 @@ function Details() {
   const controller = useMemo(() => new AbortController(), []);
 
   const [movieData, setMovieData] = useState([]);
+  const [cardData, setCardData] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -157,7 +160,34 @@ function Details() {
             </div>
 
           </div>
+          <section className=" flex mt-[4.6rem] justify-center gap-8 flex-wrap w-full">
+            {cardData.map((data, idx) => {
+              return (
+                <CardBrand
+                  key={idx}
+                  id={data.id}
+                  name={data.cinema_title}
+                  address={data.address}
+                  image={data.cinema_brand_image}
+                  price={data.price}
+                  showtime={data.cinema_showtime}
+                />
+              );
+            })}
+          </section>
+          {cardData.length > 10 && (
+            <div className=" flex gap-12 py-12 w-full items-center">
+              <div className=" w-full h-[1px] bg-tickitz-label"></div>
+              <div className=" w-max">
+                <p className=" text-tickitz-primary font-bold w-max">
+                  View More
+                </p>
+              </div>
+              <div className=" w-full h-[1px] bg-tickitz-label"></div>
+            </div>
+          )}
 
+        </section>
       </main>
       <Footer />
     </Layout>
