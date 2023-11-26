@@ -26,6 +26,7 @@ function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({ email: "", password: "" });
   const [input, setInput] = useState(null);
+
   const handleChecked = (e) => {
     setIsChecked(e.target.checked);
   };
@@ -76,9 +77,10 @@ function Signup() {
         console.log(res);
         swal(
           "Success",
-          "Register successful, check your email to activation",
+          "Register successful",
           "success"
         );
+        router.push("/login")
       })
       .catch((err) => {
         setIsLoading(false);
@@ -170,9 +172,12 @@ function Signup() {
               className=" w-full  flex flex-col px-[10%]"
               onSubmit={handleRegister}
             >
-              <h1 className=" text-[1.7rem] font-semibold lg:mt-[9.5rem] flex text-tickitz-basic">
-                Fill your additional details
+              <h1 className=" text-[1.7rem] md:text-5xl font-semibold text-tickitz-basic md:mt-16 lg:mt-[9.5rem] flex">
+                Sign Up
               </h1>
+              <h2 className=" text-[1.7rem] font-semibold lg:mt-[1.5rem] flex text-tickitz-basic">
+                Fill your additional details
+              </h2>
               <div className=" flex flex-col gap-7">
                 <div className=" flex flex-col justify-center  w-full mt-5 lg:mt-12 ">
                   <label
@@ -187,9 +192,8 @@ function Signup() {
                     name="email"
                     value={email}
                     type="text"
-                    className={`h-16 rounded-md border flex w-full p-5 outline-none ${
-                      email == "" && "border-tickitz-label"
-                    }`}
+                    className={`h-16 rounded-md border flex w-full p-5 outline-none ${email == "" && "border-tickitz-label"
+                      }`}
                     placeholder="Input Your Email"
                   />
                 </div>
@@ -209,9 +213,8 @@ function Signup() {
                     placeholder="Input Your Password"
                   />
                   <i
-                    className={` text-[#A9A9A9] absolute text-2xl cursor-pointer top-[50%] right-[1.5rem]  ${
-                      iconEye ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"
-                    }`}
+                    className={` text-[#A9A9A9] absolute text-2xl cursor-pointer top-[50%] right-[1.5rem]  ${iconEye ? "bi bi-eye-fill" : "bi bi-eye-slash-fill"
+                      }`}
                     onClick={toggleIcon}
                   ></i>
                 </div>

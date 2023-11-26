@@ -175,12 +175,12 @@ function Login() {
             </form>
             <div className=" flex gap-1 text-lg px-[10%] w-full mt-8 text-center justify-center items-center">
               <p className=" text-tickitz-label ">
-                Forgot your password?{" "}
+              New on our platform?{" "}
                 <Link
-                  href={"/reset-password"}
+                  href={"/sign-up"}
                   className=" text-tickitz-basic font-semibold underline"
                 >
-                  Reset now
+                  Create an account
                 </Link>
               </p>
             </div>
