@@ -1,5 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getProfileData } from "utils/https/user";
+import { changeProfileData } from "utils/https/user";
 
 const initialState = {
     data: [],
@@ -28,7 +29,7 @@ const editUserProfile = createAsyncThunk(
             const formData = new FormData();
             formData.append("firstName", body.firstName);
             formData.append("lastName", body.lastName);
-            formData.append("lastName", body.phone);
+            formData.append("phone", body.phone);
             const response = await changeProfileData(formData, token, controller);
             return response.data;
         } catch (err) {
@@ -60,7 +61,7 @@ const profileSlice = createSlice({
                 };
             })
             .addCase(getProfile.fulfilled, (prevState, action) => {
-                console.log(action.payload);
+                // console.log(action.payload);
                 return {
                     ...prevState,
                     isLoading: false,
@@ -68,6 +69,14 @@ const profileSlice = createSlice({
                     data: action.payload,
                 };
             })
+            .addCase(getProfile.rejected, (prevState, action) => {
+                return {
+                  ...prevState,
+                  isLoading: false,
+                  isRejected: true,
+                  err: action.payload,
+                };
+              })
             .addCase(editUserProfile.pending, (prevState, action) => {
                 return {
                     ...prevState,
@@ -77,11 +86,23 @@ const profileSlice = createSlice({
                     err: null,
                 };
             })
+            .addCase(editUserProfile.fulfilled, (prevState, action) => {
+                console.log(action.payload);
+                return {
+                  ...prevState,
+                  isLoading: false,
+                  isRejected: false,
+                  isFulfilled: true,
+                  data: { ...prevState.data, ...action.payload },
+                };
+              })
     }
 });
 
 export const profileAction = {
     ...profileSlice.actions,
+    getProfile,
+    editUserProfile,
 };
 
 export default profileSlice.reducer;
