@@ -91,9 +91,8 @@ const profileSlice = createSlice({
                 return {
                   ...prevState,
                   isLoading: false,
-                  isRejected: false,
                   isFulfilled: true,
-                  data: { ...prevState.data, ...action.payload },
+                  data: action.payload,
                 };
               })
     }
