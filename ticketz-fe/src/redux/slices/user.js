@@ -71,12 +71,12 @@ const profileSlice = createSlice({
             })
             .addCase(getProfile.rejected, (prevState, action) => {
                 return {
-                  ...prevState,
-                  isLoading: false,
-                  isRejected: true,
-                  err: action.payload,
+                    ...prevState,
+                    isLoading: false,
+                    isRejected: true,
+                    err: action.payload,
                 };
-              })
+            })
             .addCase(editUserProfile.pending, (prevState, action) => {
                 return {
                     ...prevState,
@@ -89,12 +89,19 @@ const profileSlice = createSlice({
             .addCase(editUserProfile.fulfilled, (prevState, action) => {
                 console.log(action.payload);
                 return {
-                  ...prevState,
-                  isLoading: false,
-                  isFulfilled: true,
-                  data: action.payload,
+                    ...prevState,
+                    isLoading: false,
+                    isFulfilled: true,
+                    data: action.payload,
                 };
-              })
+            })
+            .addCase(doPayment.rejected, (prevState, action) => {
+                return {
+                    ...prevState,
+                    isLoading: false,
+                    isRejected: true,
+                };
+            });
     }
 });
 

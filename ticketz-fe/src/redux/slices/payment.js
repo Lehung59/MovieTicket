@@ -41,6 +41,14 @@ const paymentSlice = createSlice({
                     err: null,
                 };
             })
+            .addCase(doPayment.fulfilled, (prevState, action) => {
+                return {
+                  ...prevState,
+                  isLoading: false,
+                  isFulfilled: true,
+                  paymentData: action.payload,
+                };
+              })
     }
 })
 
