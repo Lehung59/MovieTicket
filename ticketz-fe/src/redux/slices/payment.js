@@ -43,12 +43,20 @@ const paymentSlice = createSlice({
             })
             .addCase(doPayment.fulfilled, (prevState, action) => {
                 return {
-                  ...prevState,
-                  isLoading: false,
-                  isFulfilled: true,
-                  paymentData: action.payload,
+                    ...prevState,
+                    isLoading: false,
+                    isFulfilled: true,
+                    paymentData: action.payload,
                 };
-              })
+            })
+            .addCase(doPayment.rejected, (prevState, action) => {
+                return {
+                    ...prevState,
+                    isLoading: false,
+                    isRejected: true,
+                    err: action.payload,
+                };
+            });
     }
 })
 

@@ -100,6 +100,7 @@ const profileSlice = createSlice({
                     ...prevState,
                     isLoading: false,
                     isRejected: true,
+                    err: action.payload,
                 };
             });
     }
