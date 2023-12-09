@@ -252,39 +252,7 @@ function Payment() {
               </div>
             </section>
           </section>
-          {/* <section className=" flex flex-col gap-6 w-full lg:w-[60%]">
-          <h2 className=" font-bold text-tickitz-darkTitle text-2xl">
-            Choose a Payment Method
-          </h2>
-          <div className="flex flex-col w-full bg-white px-12 py-14 rounded-md">
-            <div className=" flex flex-wrap gap-x-6 gap-y-8 items-center justify-center lg:justify-between">
-              <div className=" flex w-[9.13rem] h-14 border-2 border-tickitz-greyBorder rounded-[1rem] justify-center items-center">
-                <Image src={gpay} alt="gpay" />
-              </div>
-              <div className=" flex w-[9.13rem] h-14 border-2 border-tickitz-greyBorder rounded-[1rem] justify-center items-center">
-                <Image src={visa} alt="gpay" />
-              </div>
-              <div className=" flex w-[9.13rem] h-14 border-2 border-tickitz-greyBorder rounded-[1rem] justify-center items-center">
-                <Image src={gopay} alt="gpay" />
-              </div>
-              <div className=" flex w-[9.13rem] h-14 border-2 border-tickitz-greyBorder rounded-[1rem] justify-center items-center">
-                <Image src={paypal} alt="gpay" />
-              </div>
-              <div className=" flex w-[9.13rem] h-14 border-2 border-tickitz-greyBorder rounded-[1rem] justify-center items-center">
-                <Image src={dana} alt="gpay" />
-              </div>
-              <div className=" flex w-[9.13rem] h-14 border-2 border-tickitz-greyBorder rounded-[1rem] justify-center items-center">
-                <Image src={bca} alt="gpay" />
-              </div>
-              <div className=" flex w-[9.13rem] h-14 border-2 border-tickitz-greyBorder rounded-[1rem] justify-center items-center">
-                <Image src={bri} alt="gpay" />
-              </div>
-              <div className=" flex w-[9.13rem] h-14 border-2 border-tickitz-greyBorder rounded-[1rem] justify-center items-center">
-                <Image src={ovo} alt="gpay" />
-              </div>
-            </div>
-          </div>
-        </section> */}
+      
           <section className=" flex flex-col gap-6 w-full lg:w-[40%] ">
             <h2 className=" font-bold text-tickitz-darkTitle text-2xl">
               Personal Info
