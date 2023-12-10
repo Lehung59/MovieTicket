@@ -94,7 +94,6 @@ function TicketResult() {
 											<h2 className="font-bold">
 												{transactionData ? transactionData.show_time : "No Time"}
 											</h2>
-
 										</span>
 										<span className="flex-1 flex flex-col items-start gap-2">
 											<p className="text-gray-400 text-sm">Category</p>
@@ -108,13 +107,6 @@ function TicketResult() {
 												{transactionData ? transactionData.seats?.length : "No Date"} pieces
 											</h2>
 										</span>
-										
-										<span className="flex-1 flex flex-col items-start gap-2">
-											<p className="text-gray-400 text-sm">Date</p>
-											<h2 className="font-bold">
-												{transactionData ? transactionData.show_date : "No Date"}
-											</h2>
-										</span>
 										<span className="flex-1 flex flex-col items-start gap-2">
 											<p className="text-gray-400 text-sm">Seats</p>
 											<h2 className="font-bold">
@@ -125,13 +117,6 @@ function TicketResult() {
 											<p className="text-gray-400 text-sm">Price</p>
 											<h2 className="font-bold">
 												{transactionData ? `Rp${seatPrice.toLocaleString("id-ID")}` : "No Seats"}
-											</h2>
-										</span>
-										
-										<span className="flex-1 flex flex-col items-start gap-2">
-											<p className="text-gray-400 text-sm">Seats</p>
-											<h2 className="font-bold">
-												{transactionData ? seatData.join(", ") : "No Seats"}
 											</h2>
 										</span>
 									</div>
