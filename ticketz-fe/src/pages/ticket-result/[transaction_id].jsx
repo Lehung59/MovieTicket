@@ -139,19 +139,7 @@ function TicketResult() {
 								</div>
 							</div>
 						</section>
-						<section className=" flex gap-4 mt-12 justify-center items-center">
-							<button
-								onClick={handleDownloadPdf}
-								className=" btn bg-transparent hover:bg-tickitz-detail btn-outline rounded-md text-tickitz-basic gap-5 border border-tickitz-primary"
-							>
-								<i className="bi bi-download text-xl"></i>
-								<p>Download</p>
-							</button>
-							<button className=" btn bg-transparent w-40 hover:bg-tickitz-detail btn-outline rounded-md text-tickitz-basic gap-5 border border-tickitz-primary">
-								<i className="bi bi-printer text-xl"></i>
-								<p>Print</p>
-							</button>
-						</section>
+						
 					</section>
 				</main>
 				<Footer />
