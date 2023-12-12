@@ -53,7 +53,9 @@ function Admin() {
             <section className="w-full lg:w-[30%]  flex flex-col">
               <h1 className="font-bold text-xl mb-6">Premiere Location</h1>
               {/* Your premiere location selection here */}
-              <h1 className="font-bold text-2xl mt-8 lg:mt-10 mb-6">Showtimes</h1>
+              <h1 className="font-bold text-2xl mt-8 lg:mt-10 mb-6">
+                Showtimes
+              </h1>
               <div className="w-full flex flex-col gap-5 py-8 px-8 bg-base-100 rounded-lg">
                 <div className="form-control  ">
                   <label className="label" htmlFor="open-date"></label>
@@ -79,7 +81,7 @@ function Admin() {
                     className="border border-tickitz-primary-focus outline-none w-full rounded-md px-4"
                     placeholder="ex 08:30"
                   />
-                                    <input
+                  <input
                     type="text"
                     value={addTime}
                     onChange={(e) => setAddTime(e.target.value)}
@@ -107,6 +109,16 @@ function Admin() {
                   ))}
                 </div>
               </div>
+              {/* Thêm các trường thông tin khác của phim tương tự */}
+              <div className="form-control">
+                <label htmlFor="image">Image</label>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                />
+              </div>
+              <button onClick={handleSaveMovie}>Save Movie</button>
               <button className="btn bg-tickitz-primary hover:bg-tickitz-primary text-white mt-10">
                 Save
               </button>
