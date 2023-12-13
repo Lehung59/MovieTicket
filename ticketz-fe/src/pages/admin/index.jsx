@@ -9,34 +9,80 @@ import cineone from "assets/icons/CineOne21.svg";
 import ebv from "assets/icons/ebv.id.svg";
 import Title from "utils/wrapper/title";
 import privateRoute from "utils/wrapper/privateRoute";
-function ListCategory({ name, listCategory, handleClick }) {
-  const isCategory = listCategory && listCategory.includes(name);
-
-  return (
-    <li>
-      <a
-        // onClick={() => handleClick(name)}
-        className={"text-tickitz-primary font-bold"}
-      >
-        {name}
-      </a>
-    </li>
-  );
-}
 
 function Admin() {
-  const [image, setImage] = useState();
+  const controller = useMemo(() => new AbortController(), []);
+  const router = useRouter();
+  const [datas, setDatas] = useState([]);
 
+  const [image, setImage] = useState(null);
+  const [location, setLocation] = useState("Select Location");
+  const [addTime, setAddTime] = useState("");
+  const [dataTime, setDataTime] = useState([]);
   const showSetImage = () => {
     if (image) {
       return URL.createObjectURL(image);
+      console.log("1");
     }
     return placeholder;
   };
-  const onChangeFile = (event) => {
-    setImage(event.target.files[0]);
+
+  const handleAddTime = () => {
+    if (addTime) {
+      setDataTime([...dataTime, addTime]);
+      setAddTime("");
+    }
   };
-  const [location, setLocation] = useState("Select Location");
+
+  const handleRemoveTime = (index) => {
+    const updatedDataTime = [...dataTime];
+    updatedDataTime.splice(index, 1);
+    setDataTime(updatedDataTime);
+  };
+  const show_id = router.query.show_id;
+  console.log(idSeat);
+  console.log(seat);
+  console.log(datas);
+  let seatIds = "";
+  if (datas.length !== 0 && seat.length !== 0) {
+    seatIds = datas.details
+      .filter((datas) => seat.includes(datas.seat))
+      .map((seat) => seat.seat_id);
+    console.log(seatIds);
+  }
+  console.log(seatIds);
+  const handleCheckout = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    orderSeat(seatIds, token, controller)
+      .then((res) => {
+        console.log(res.data.data[0].transaction_id);
+        swal("Success", "Order successful", "success");
+        setTimeout(() => {
+          router.push(`/payment/${res.data.data[0].transaction_id}`);
+        }, 3000);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+  useEffect(() => {
+    setLoading(true);
+    getOrderPage(show_id, controller)
+      .then(({ data }) => {
+        setDatas(data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+  // console.log(datas);
   return (
     <>
       <Title title="Admin Page">
