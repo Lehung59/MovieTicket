@@ -11,7 +11,7 @@ jobs:
           command: |
             cd ticketz-be && \
             npm i --force && \
-            npm run build
+            npm run dev
       - run:
           name: Install Frontend
           command: |
