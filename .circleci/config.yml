@@ -1,0 +1,11 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: node:20.4.0
+    steps:
+      - checkout
+      - run:
+          name: Install Dependencies
+          command: npm install --force
