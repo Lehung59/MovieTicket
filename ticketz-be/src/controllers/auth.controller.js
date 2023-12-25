@@ -136,61 +136,6 @@ const privateAcces = (req, res) => {
   });
 };
 
-const createOtp = async (req, res) => {
-  try {
-    const { email, link_direct } = req.body;
-    const digits = "0123456789";
-    let OTP = "";
-    for (let i = 0; i < 6; i++) {
-      OTP += digits[Math.floor(Math.random() * 10)];
-    }
-    const result = await authModels.createOtp(email, OTP);
-    console.log(result);
-    if (result.rows < 1) {
-      return res.status(404).json({
-        msg: "Email Belum Terdaftar",
-      });
-    }
-    // console.log(result.rows[0].otp);
-    const verifyUrl = `${link_direct}/${email}`;
-    const mailoptions = {
-      from: "tickitz.tim@gmail.com",
-      to: `${email}`,
-      subject: "Otp Code Verification 👻",
-      html: `
-        <div
-          class="container"
-          style="max-width: 90%; margin: auto; padding-top: 20px"
-        >
-          <h2>Hi.</h2>
-          <h4>This Is Your Otp</h4>
-          <p>${OTP}</p>
-          <p style="margin-bottom: 30px;">Please click <a href="${verifyUrl}" style="color: red;">here</a> to verif your email</p>
-    </div>
-      `,
-    };
-    transporter.sendMail(mailoptions, async function (error, info) {
-      if (error) {
-        console.log(error);
-        return res.status(500).json({
-          msg: "Internal Server Error",
-        });
-      } else {
-        console.log(`Email send: ${info.response}`);
-        // const result = await authModels.register(body, hashedPassword, OTP);
-        await authModels.createOtp(email, OTP);
-        return res.status(200).json({
-          msg: "Please Check Your Email",
-        });
-      }
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
-      msg: "Internal Server Error",
-    });
-  }
-};
 
 const resetPassword = async (req, res) => {
   try {
