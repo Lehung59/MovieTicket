@@ -118,7 +118,6 @@ function Otp() {
                     </div>
                   </div>
                 </div>
-
                 <div className=" flex flex-col">
                   <div className=" flex">
                     <div className="flex flex-col justify-center">

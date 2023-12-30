@@ -29,7 +29,7 @@ const editUserProfile = createAsyncThunk(
       const formData = new FormData();
       formData.append("firstName", body.firstName);
       formData.append("lastName", body.lastName);
-      formData.append("phone", body.phone);
+      formData.append("lastName", body.phone);
       const response = await changeProfileData(formData, token, controller);
       return response.data;
     } catch (err) {

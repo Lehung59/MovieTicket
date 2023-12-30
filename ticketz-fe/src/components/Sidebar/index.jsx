@@ -93,7 +93,7 @@ export default function Sidebar(props) {
             setIsModalOpen(false);
             router.reload();
           }, 3000);
-          
+
           dispatch(profileAction.getProfile({ token, controller }));
 
           return "Image succesfully deleted";
@@ -109,9 +109,8 @@ export default function Sidebar(props) {
 
   return (
     <section
-      className={`bg-white lg:w-1/3 w-full ${
-        props.isHistory ? "hidden lg:flex" : "flex"
-      } flex-col rounded-md shadow-[0px,8px,32px,rgba(186,186,186,0.08)] md:px-8 px-4 py-12 gap-y-5`}>
+      className={`bg-white lg:w-1/3 w-full ${props.isHistory ? "hidden lg:flex" : "flex"
+        } flex-col rounded-md shadow-[0px,8px,32px,rgba(186,186,186,0.08)] md:px-8 px-4 py-12 gap-y-5`}>
       <div className="flex items-center justify-between">
         <p className="text-tickitz-basic">INFO</p>
         <div className="dropdown dropdown-end">
@@ -130,17 +129,17 @@ export default function Sidebar(props) {
       <figure className="relative overflow-hidden mx-auto h-[136px] w-[136px] rounded-full shadow-[0px_8px_16px_rgba(73,83,99,0.24)]">
         <Image
           alt="your profile photo"
-          src={profileData.image ? profileData.image : defaulProfile}
+          src={profileData.image && (profileData.image.startsWith('http') || profileData.image.startsWith('https')) ? profileData.image : defaulProfile}
           fill={true}
           priority={true}
           sizes="136px"
           className="object-cover object-center"
         />
+
       </figure>
       <div className="flex flex-col items-center gap-y-3">
-        <p className="font-semibold text-xl text-tickitz-darkTitle">{`${
-          profileData.first_name ? profileData.first_name : "Anonymous"
-        } ${profileData.last_name ? profileData.last_name : "Anonymous"}`}</p>
+        <p className="font-semibold text-xl text-tickitz-darkTitle">{`${profileData.first_name ? profileData.first_name : "Anonymous"
+          } ${profileData.last_name ? profileData.last_name : "Anonymous"}`}</p>
         <p className="text-sm text-tickitz-basic">Moviegoers</p>
       </div>
       <div className="divider h-[1px] bg-[#DEDEDE]"></div>

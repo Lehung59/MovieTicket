@@ -77,7 +77,7 @@ export default function Home({ upcomingMovies, nowMovies }) {
 														<figure className="relative overflow-hidden w-[159px] h-[224px]">
 															<Image
 																alt="movie-poster"
-																src={movie.movies_image}
+																src={movie.movies_image.startsWith('/') ? movie.movies_image : `/${movie.movies_image}`}
 																fill={true}
 																priority={true}
 																sizes="159px"
@@ -150,7 +150,7 @@ export default function Home({ upcomingMovies, nowMovies }) {
 														<figure className="relative overflow-hidden w-[159px] h-[224px]">
 															<Image
 																alt="movie-poster"
-																src={movie.movies_image}
+																src={movie.movies_image.startsWith('/') ? movie.movies_image : `/${movie.movies_image}`}
 																fill={true}
 																priority={true}
 																sizes="159px"
@@ -221,7 +221,7 @@ export async function getServerSideProps() {
 	let props = {};
 	try {
 		const baseUrl = `${process.env.NEXT_PUBLIC_API_URL}`;
-		const { data } = await axios.get(`${baseUrl}/movies?show=now`);
+		const { data } = await axios.get(`${baseUrl}/movies?show-now`);
 		console.log(data);
 		Object.assign(props, { nowMovies: data.data });
 	} catch (error) {

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
 import Layout from "components/Layout";
@@ -14,6 +15,7 @@ import { getHistories } from "utils/https/payment";
 import Loader from "components/Loader";
 
 function History() {
+  //* temporary
   const historyData = [
     {
       movieTitle: "Spider-Man: Homecoming",
@@ -38,6 +40,8 @@ function History() {
     setLoading(true);
     try {
       const result = await getHistories(token, controller);
+      //   console.log(result.data);
+      //   setLoading(false);
       if (result.status && result.status === 200) {
         setDataHistory(result.data.data);
         setLoading(false);
@@ -51,6 +55,7 @@ function History() {
 
   useEffect(() => {
     fetching();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -104,9 +109,10 @@ function History() {
                         >
                           <Image
                             alt="cinema logo"
-                            src={historyDatum.cinemas_brand_image}
+                            src={historyDatum.cinemas_brand_image.startsWith('/') ? historyDatum.cinemas_brand_image : `/${historyDatum.cinemas_brand_image}`}
                             width={122}
                             height={22}
+                            // fill={true}
                           />
                         </div>
                       </div>
