@@ -41,7 +41,6 @@ export default function Sidebar(props) {
     setImagePreview(null);
   };
 
-  console.log('profileData: ', profileData);
   const onImageUpload = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
@@ -155,7 +154,7 @@ export default function Sidebar(props) {
             </p>
             <Image
               alt="star icon"
-              src={starIcon.startsWith('/') ? starIcon : `/${starIcon}`}
+              src={starIcon}
               className="absolute top-[10px] right-[10px]"
             />
           </div>

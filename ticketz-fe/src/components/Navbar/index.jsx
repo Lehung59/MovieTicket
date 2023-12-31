@@ -5,12 +5,14 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import pp from "assets/images/place00.jpg";
 import Logout from "components/Logout";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
   const [isSearch, setIsSearch] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [dropdown, setDropdown] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const handleMenuToggle = () => {
     setDropdown(!dropdown);
@@ -25,17 +27,24 @@ export default function Navbar() {
   const profileUser = userData.data;
   // console.log(profileUser.image);
 
+  const handleHomePage = () => {
+    router.push("/")
+  }
+
   return (
     <>
       {isOpen && <Logout isOpen={isOpen} setIsOpen={setIsOpen} />}
       <header className="navbar md:px-20 px-5 py-5">
         <section className="navbar-start flex gap-x-20">
-          <div>
+          <div
+            onClick={handleHomePage}
+          >
             <svg
               width="130"
               height="51"
               viewBox="0 0 130 51"
               fill="none"
+              cursor={"pointer"}
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -121,7 +130,7 @@ export default function Navbar() {
                 className=" w-14 h-14 rounded-full overflow-hidden lg:block hidden cursor-pointer"
               >
                 <Image
-                  src={!profileUser.image ? pp :  !profileUser.image || profileUser.image.startsWith('/') ? profileUser.image : `/${profileUser.image}`}
+                  src={!profileUser.image ? pp : profileUser.image}
                   width={56}
                   height={56}
                   alt="photoProfile"
@@ -131,20 +140,20 @@ export default function Navbar() {
               </div>
               <div
                 className={`${dropdown
-                    ? "dropdown transition duration-300 ease-in-out opacity-100 transform translate-y-2"
-                    : "dropdown transition duration-200 ease-in-out opacity-0 transform -translate-y-0 invisible"
+                  ? "dropdown transition duration-300 ease-in-out opacity-100 transform translate-y-2"
+                  : "dropdown transition duration-200 ease-in-out opacity-0 transform -translate-y-0 invisible"
                   }  absolute right-0 z-10 mt-12 mr-10 top-8 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="menu-button"
-                tabindex="-1"
+                tabIndex="-1"
               >
                 <div class="py-1" role="none">
                   <Link
                     href="/profile"
                     class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100 hover:text-gray-900 transition-colors"
                     role="menuitem"
-                    tabindex="-1"
+                    tabIndex="-1"
                     id="menu-item-0"
                   >
                     Profile
@@ -153,7 +162,7 @@ export default function Navbar() {
                     // type="submit"
                     class="text-gray-700 block w-full px-4 py-2 text-left text-sm hover:bg-gray-100 hover:text-gray-900 transition-colors"
                     role="menuitem"
-                    tabindex="-1"
+                    tabIndex="-1"
                     id="menu-item-3"
                     onClick={handleLogout}
                   >
@@ -200,8 +209,8 @@ export default function Navbar() {
           </div>
           <div
             className={`lg:hidden fixed top-16 left-0 right-0 bottom-0 z-40 ${isMobile
-                ? "opacity-70 bg-black h-screen"
-                : "pointer-events-none opacity-0"
+              ? "opacity-70 bg-black h-screen"
+              : "pointer-events-none opacity-0"
               }`}
           />
           <div

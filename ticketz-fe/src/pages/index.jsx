@@ -44,7 +44,7 @@ export default function Home({ upcomingMovies, nowMovies }) {
 								</p>
 							</div>
 							<div className="right-side">
-								<Image alt="movie posters" src={posterHero.startsWith('/') ? posterHero : `/${posterHero}`} priority={true} />
+								<Image alt="movie posters" src={posterHero} priority={true} />
 							</div>
 						</div>
 					</section>
