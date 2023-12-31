@@ -52,7 +52,7 @@ function ResetPassword() {
           <section className="hero-auth hidden lg:flex w-[58%] flex-col ">
             <section className=" flex flex-col w-full h-full bg-tickitz-primary  px-28 bg-opacity-80">
               <div className=" pt-20  mb-[4rem] ">
-                <Image src={branding.startsWith('/') ? branding : `/${branding}`} width={276} height={104} alt="brand" />
+                <Image src={branding} width={276} height={104} alt="brand" />
               </div>
               <div className=" flex flex-col gap-5">
                 <p className=" text-white font-bold text-5xl lg:text-[1.8rem] xl:text-5xl leading-[60px]">
@@ -133,7 +133,7 @@ function ResetPassword() {
           </section>
           <section className=" flex w-full lg:w-[47%] xl:w-[42%]  flex-col ">
             <div className=" flex lg:hidden px-[10%] mt-[5rem] mb-[4.2rem] lg:inset-0">
-              <Image src={brandingFill.startsWith('/') ? brandingFill : `/${brandingFill}`} width={200} alt="brandd" />
+              <Image src={brandingFill} width={200} alt="brandd" />
             </div>
             <form
               action=""

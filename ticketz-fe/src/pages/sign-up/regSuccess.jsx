@@ -15,7 +15,7 @@ export default function RegSucces() {
           <section className="hero-auth hidden lg:flex w-[58%] flex-col ">
             <section className=" flex flex-col w-full h-full bg-tickitz-primary  px-28 bg-opacity-80">
               <div className=" pt-20  mb-[6rem] ">
-                <Image src={branding.startsWith('/') ? branding : `/${branding}`} width={276} height={104} alt="brand" />
+                <Image src={branding} width={276} height={104} alt="brand" />
               </div>
               <div className=" flex flex-col gap-5">
                 <p className=" text-white font-bold text-5xl lg:text-[2rem] xl:text-4xl leading-[60px]">
@@ -83,7 +83,7 @@ export default function RegSucces() {
           <section className=" flex w-full lg:w-[47%] overflow-hidden xl:w-[42%]  flex-col justify-center items-center pb-60 relative ">
             <div className=" flex flex-col ">
               <div className=" flex lg:hidden px-[10%] mt-[5rem] mb-[4.2rem] lg:inset-0">
-                <Image src={brandingFill.startsWith('/') ? brandingFill : `/${brandingFill}`} width={200} alt="brandd" />
+                <Image src={brandingFill} width={200} alt="brandd" />
               </div>
               <div className="justify-center items-center  flex flex-col gap-4">
                 <i className="bi bi-check-circle-fill text-[5rem] text-tickitz-success "></i>
