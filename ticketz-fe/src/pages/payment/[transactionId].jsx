@@ -157,7 +157,7 @@ function Payment() {
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
                     onClick={() => setPayment(1)}
                   >
-                    <Image src={gpay} alt="gpay" className=" w-9 md:w-auto" />
+                    <Image src={gpay.startsWith('/') ? gpay : `/${gpay}`} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                   <div
                     className={` ${
@@ -166,7 +166,7 @@ function Payment() {
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
                     onClick={() => setPayment(2)}
                   >
-                    <Image src={visa} alt="gpay" className=" w-9 md:w-auto" />
+                    <Image src={visa.startsWith('/') ? visa : `/${visa}`} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                   <div
                     className={` ${
@@ -175,7 +175,7 @@ function Payment() {
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
                     onClick={() => setPayment(3)}
                   >
-                    <Image src={gopay} alt="gpay" className=" w-9 md:w-auto" />
+                    <Image src={gopay.startsWith('/') ? gopay : `/${gopay}`} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                   <div
                     className={` ${
@@ -184,7 +184,7 @@ function Payment() {
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
                     onClick={() => setPayment(4)}
                   >
-                    <Image src={paypal} alt="gpay" className=" w-5 md:w-auto" />
+                    <Image src={paypal.startsWith('/') ? paypal : `/${paypal}`} alt="gpay" className=" w-5 md:w-auto" />
                   </div>
                   <div
                     className={` ${
@@ -193,7 +193,7 @@ function Payment() {
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
                     onClick={() => setPayment(5)}
                   >
-                    <Image src={dana} alt="gpay" className=" w-9 md:w-auto" />
+                    <Image src={dana.startsWith('/') ? dana : `/${dana}`} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                   <div
                     className={` ${
@@ -202,7 +202,7 @@ function Payment() {
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
                     onClick={() => setPayment(6)}
                   >
-                    <Image src={bca} alt="gpay" className=" w-9 md:w-auto" />
+                    <Image src={bca.startsWith('/') ? bca : `/${bca}`} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                   <div
                     className={` ${
@@ -211,7 +211,7 @@ function Payment() {
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
                     onClick={() => setPayment(7)}
                   >
-                    <Image src={bri} alt="gpay" className=" w-7 md:w-auto" />
+                    <Image src={bri.startsWith('/') ? bri : `/${bri}`} alt="gpay" className=" w-7 md:w-auto" />
                   </div>
                   <div
                     className={` ${
@@ -220,7 +220,7 @@ function Payment() {
                     } cursor-pointer flex w-[4.15rem] md:w-[8.13rem] lg:w-[9.13rem] h-[2.5rem] md:h-14 border-2 border-tickitz-greyBorder rounded-lg md:rounded-[1rem] justify-center items-center`}
                     onClick={() => setPayment(8)}
                   >
-                    <Image src={ovo} alt="gpay" className=" w-9 md:w-auto" />
+                    <Image src={ovo.startsWith('/') ? ovo : `/${ovo}`} alt="gpay" className=" w-9 md:w-auto" />
                   </div>
                 </div>
                 <div className=" flex gap-9 justify-center items-center text-center opacity-70 my-11 ">

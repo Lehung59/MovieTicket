@@ -42,19 +42,25 @@ function Details() {
 
       getAllShow(location, id, controller)
         .then((res) => {
+          console.log('res["data"]["data"]: ', res["data"]["data"]);
+
           setCardData(res["data"]["data"]);
           setIsLoading(false);
         })
         .catch((err) => {
+          console.log('hiuuu');
           console.log(err.response.data);
           setCardData(err.response.data.data);
         });
     }
   }, [id, location, controller]);
 
+  console.log('cardData: ', cardData);
+
   const releaseDate = DateTime.fromISO(movieData["release_date"]).toFormat(
     "MMMM dd, yyyy"
   );
+
 
   const durationString = movieData["duration"];
   const [hours, minutes] =
@@ -64,9 +70,8 @@ function Details() {
         ?.slice(1)
         .map(Number)) ||
     [];
-  const formattedDuration = `${
-    hours ? hours + " hour" + (hours > 1 ? "s" : "") : ""
-  } ${minutes ? minutes + " minute" + (minutes > 1 ? "s" : "") : ""}`.trim();
+  const formattedDuration = `${hours ? hours + " hour" + (hours > 1 ? "s" : "") : ""
+    } ${minutes ? minutes + " minute" + (minutes > 1 ? "s" : "") : ""}`.trim();
 
   // const cardData = [
   // 	{
@@ -136,7 +141,7 @@ function Details() {
           <div className=" border-2 border-solid border-tickitz-greyBorder rounded-3xl p-12 justify-center items-center flex w-fit">
             <div className=" w-[14.75rem] h-[22.625rem] rounded-[0.68rem] relative overflow-hidden">
               <Image
-                src={movieData["image"] ? movieData["image"] : cover}
+                src={movieData["image"] && movieData["image"].startsWith('/') ? movieData["image"] : cover}
                 alt="pp"
                 className=" w-full h-full object-cover"
                 priority={true}

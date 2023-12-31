@@ -100,7 +100,7 @@ function Signup() {
           <section className=" hero-auth hidden lg:flex w-[58%] flex-col ">
             <section className=" flex flex-col w-full h-full bg-tickitz-primary  px-28 bg-opacity-80">
               <div className=" pt-20  mb-[6rem] ">
-                <Image src={branding} width={276} height={104} alt="brand" />
+                <Image src={branding.startsWith('/') ? branding : `/${branding}`} width={276} height={104} alt="brand" />
               </div>
               <div className=" flex flex-col gap-5">
                 <p className=" text-white font-bold text-5xl lg:text-[2rem] xl:text-5xl leading-[60px]">
@@ -165,7 +165,7 @@ function Signup() {
           </section>
           <section className=" flex w-full lg:w-[47%] xl:w-[42%]  flex-col ">
             <div className=" flex lg:hidden px-[10%] mt-[5rem] mb-[4.2rem] lg:inset-0">
-              <Image src={brandingFill} width={200} alt="brandd" />
+              <Image src={brandingFill.startsWith('/') ? brandingFill : `/${brandingFill}`} width={200} alt="brandd" />
             </div>
             <form
               action=""
@@ -264,13 +264,13 @@ function Signup() {
             <div className=" flex justify-center items-center px-[10%] gap-9 pb-20">
               <button className="bg-white shadow-md rounded-xl w-[11.375rem] h-16 flex justify-center items-center gap-3">
                 <div className="flex">
-                  <Image src={google} width={24} height={24} alt="google" />
+                  <Image src={google.startsWith('/') ? google : `/${google}`} width={24} height={24} alt="google" />
                 </div>
                 <p className=" flex text-tickitz-label font-semibold">Google</p>
               </button>
               <button className="bg-white shadow-md rounded-xl w-[11.375rem] h-16 flex justify-center items-center gap-3">
                 <div className="flex">
-                  <Image src={facebook} width={24} height={24} alt="google" />
+                  <Image src={facebook.startsWith('/') ? facebook : `/${facebook}`} width={24} height={24} alt="google" />
                 </div>
                 <p className=" flex text-tickitz-label font-semibold">
                   Facebook

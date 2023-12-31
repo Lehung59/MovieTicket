@@ -74,7 +74,7 @@ export default function GrandInd() {
                         className="flex flex-col items-center gap-y-7 bg-white border-[0.5px] border-[#DEDEDE] rounded-md p-5"
                       >
                         <figure className="relative overflow-hidden h-[224px] w-[159px]">
-                          <Imagern dev
+                          <Image dev
                             alt="movie-poster"
                             src={movieData && movie.movies_image.startsWith('/') ? movie.movies_image : `/${movie.movies_image}`}
                             fill={true}

@@ -25,8 +25,6 @@ export default function Navbar() {
   const profileUser = userData.data;
   // console.log(profileUser.image);
 
-  console.log(dataUser);
-
   return (
     <>
       {isOpen && <Logout isOpen={isOpen} setIsOpen={setIsOpen} />}
@@ -123,7 +121,7 @@ export default function Navbar() {
                 className=" w-14 h-14 rounded-full overflow-hidden lg:block hidden cursor-pointer"
               >
                 <Image
-                  src={!profileUser.image || !profileUser.image.startsWith('http') ? pp : profileUser.image}
+                  src={!profileUser.image ? pp :  !profileUser.image || profileUser.image.startsWith('/') ? profileUser.image : `/${profileUser.image}`}
                   width={56}
                   height={56}
                   alt="photoProfile"

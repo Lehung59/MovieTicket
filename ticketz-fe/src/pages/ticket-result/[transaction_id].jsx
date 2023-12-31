@@ -72,7 +72,7 @@ function TicketResult() {
 						>
 							<div className=" flex flex-col w-full lg:w-[67%]">
 								<div className=" bg-tickitz-primary hidden   bg-opacity-80 px-14 rounded-t-2xl lg:rounded-tl-2xl h-[4.813rem] justify-between items-center lg:flex">
-									<Image src={branding} alt="brand" width={115} />
+									<Image src={branding.startsWith('/') ? branding : `/${branding}`} alt="brand" width={115} />
 									<p className=" text-lg font-semibold leading-[34px] text-white">Admit One</p>
 								</div>
 								<div className=" flex flex-col px-14 py-8 gap-y-4">
@@ -129,7 +129,7 @@ function TicketResult() {
 							</div>
 							<div className=" w-full lg:w-[33%] flex-col justify-center items-center">
 								<div className=" bg-tickitz-primary bg-opacity-80 px-14 rounded-t-2xl lg:rounded-tr-2xl h-[4.813rem] justify-center items-center hidden lg:flex">
-									<Image src={branding} alt="brand" width={115} />
+									<Image src={branding.startsWith('/') ? branding : `/${branding}`} alt="brand" width={115} />
 								</div>
 								<div className="flex justify-center items-center pt-8 flex-col">
 									<QRCodeGenerator data={qrCodeImage} />
